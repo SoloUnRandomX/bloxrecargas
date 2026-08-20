@@ -1,236 +1,373 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" class="dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tienda Online Minimal</title>
-  <!-- Tailwind CSS CDN -->
+  <title>BloxRecargas | Frutas Permanentes y Gamepasses de Blox Fruits</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Lucide Icons -->
-  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;900&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Outfit', 'sans-serif'],
+            heading: ['Space Grotesk', 'sans-serif'],
+          },
+          colors: {
+            blox: {
+              purple: '#7c3aed',
+              cyan: '#06b6d4',
+              pink: '#ec4899',
+              dark: '#0a0d14',
+              card: '#121824',
+              border: '#1f293d',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background-color: #06090e;
+      color: #f1f5f9;
+      font-family: 'Outfit', sans-serif;
+    }
+    .neon-text-purple {
+      text-shadow: 0 0 15px rgba(124, 58, 237, 0.6);
+    }
+    .neon-text-cyan {
+      text-shadow: 0 0 15px rgba(6, 182, 212, 0.6);
+    }
+    .neon-border {
+      box-shadow: 0 0 15px rgba(124, 58, 237, 0.25);
+    }
+    .neon-border:hover {
+      box-shadow: 0 0 25px rgba(6, 182, 212, 0.4);
+    }
+    .gradient-banner {
+      background: linear-gradient(135deg, rgba(124, 58, 237, 0.2) 0%, rgba(6, 182, 212, 0.15) 100%);
+    }
+  </style>
 </head>
-<body class="bg-stone-50 text-stone-900 flex flex-col min-h-screen antialiased">
+<body class="flex flex-col min-h-screen selection:bg-cyan-500 selection:text-black">
 
-  <!-- Navbar -->
-  <header class="sticky top-0 z-40 bg-white/90 backdrop-blur border-b border-stone-200">
-    <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
-      <a href="#" class="text-xl font-bold tracking-tight text-stone-900">TIENDA<span class="text-emerald-700">.</span></a>
+  <!-- TOP ANNOUNCEMENT BAR -->
+  <div class="bg-gradient-to-r from-purple-900 via-indigo-900 to-cyan-900 text-xs font-semibold py-1.5 text-center tracking-wider text-cyan-200 border-b border-purple-500/30 flex items-center justify-center gap-2">
+    <span class="bg-purple-500 text-white px-2 py-0.5 rounded-full text-[10px] font-extrabold uppercase animate-pulse">Stock Actualizado</span>
+    <span>¡Nuevas Frutas Kitsune y Dragon disponibles con entrega inmediata!</span>
+  </div>
 
-      <nav class="hidden md:flex gap-6 text-sm font-medium text-stone-600">
-        <a href="#destacados" class="hover:text-stone-900 transition-colors">Destacados</a>
-        <a href="#catalogo" class="hover:text-stone-900 transition-colors">Catálogo</a>
-        <a href="#sobre-nosotros" class="hover:text-stone-900 transition-colors">Sobre nosotros</a>
-      </nav>
+  <!-- BARRA DE NAVEGACIÓN -->
+  <header class="bg-blox-dark/90 backdrop-blur-md border-b border-blox-border sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-20">
+        
+        <!-- Logo -->
+        <div class="flex-shrink-0 flex items-center">
+          <a href="#" class="font-heading text-2xl sm:text-3xl font-black tracking-wider text-white uppercase flex items-center gap-2">
+            <i class="fa-solid fa-cubes text-cyan-400 text-2xl"></i>
+            Blox<span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400 neon-text-purple">Recargas</span>
+          </a>
+        </div>
 
-      <div class="flex items-center gap-4">
-        <button id="cart-btn" class="relative p-2 text-stone-700 hover:text-stone-900">
-          <i data-lucide="shopping-bag" class="w-5 h-5"></i>
-          <span id="cart-count" class="absolute top-0 right-0 w-4 h-4 text-[10px] font-bold bg-emerald-700 text-white rounded-full flex items-center justify-center">0</span>
-        </button>
+        <!-- Buscador Gamer -->
+        <div class="hidden md:flex flex-1 max-w-md mx-8">
+          <div class="relative w-full">
+            <input type="text" placeholder="Buscar Fruta Permanente, Gamepass..." class="w-full bg-blox-card border border-blox-border text-slate-200 pl-4 pr-10 py-2.5 rounded-xl text-sm focus:outline-none focus:border-cyan-400 transition shadow-inner">
+            <button class="absolute right-0 top-0 mt-3 mr-3 text-cyan-400 hover:text-cyan-300">
+              <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Acciones del Usuario & Carrito -->
+        <div class="flex items-center space-x-5">
+          <a href="#" class="text-slate-300 hover:text-cyan-400 transition flex items-center gap-2 text-sm font-semibold bg-blox-card px-3.5 py-2 rounded-xl border border-blox-border">
+            <i class="fa-solid fa-user-ninja text-purple-400"></i>
+            <span class="hidden sm:inline">Ingresar</span>
+          </a>
+          <button id="cart-btn" class="relative bg-gradient-to-r from-purple-600 to-cyan-600 hover:from-purple-500 hover:to-cyan-500 text-white p-2.5 rounded-xl transition flex items-center gap-2 shadow-lg shadow-purple-900/40">
+            <i class="fa-solid fa-basket-shopping text-lg"></i>
+            <span id="cart-count" class="bg-cyan-400 text-slate-950 text-xs font-black rounded-full h-5 w-5 flex items-center justify-center">0</span>
+          </button>
+        </div>
+
       </div>
     </div>
   </header>
 
-  <!-- Hero Section -->
-  <section class="bg-stone-100 border-b border-stone-200 py-16 px-4">
-    <div class="max-w-4xl mx-auto text-center space-y-4">
-      <span class="inline-block px-3 py-1 bg-stone-200 text-stone-700 rounded-full text-xs font-semibold uppercase tracking-wider">Nueva Colección 2026</span>
-      <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-stone-900">Diseño funcional para el día a día.</h1>
-      <p class="text-stone-600 max-w-xl mx-auto text-base">Productos seleccionados con materiales duraderos y estética minimalista.</p>
-      <div class="pt-2">
-        <a href="#catalogo" class="inline-flex items-center gap-2 px-6 py-3 bg-stone-900 text-white text-sm font-medium rounded-lg hover:bg-stone-800 transition-colors">
-          Explorar catálogo
-          <i data-lucide="arrow-right" class="w-4 h-4"></i>
-        </a>
+  <!-- BANNER PRINCIPAL (HERO) -->
+  <section class="relative overflow-hidden py-12 md:py-16 gradient-banner border-b border-blox-border">
+    <!-- Glow Decorative Effects -->
+    <div class="absolute top-1/2 left-10 w-72 h-72 bg-purple-600/20 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="absolute bottom-0 right-10 w-96 h-96 bg-cyan-600/20 rounded-full blur-3xl pointer-events-none"></div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
+      <div class="md:w-1/2 text-center md:text-left">
+        <div class="inline-flex items-center gap-2 bg-purple-950/80 border border-purple-500/40 px-3 py-1 rounded-full text-purple-300 text-xs font-bold uppercase tracking-wider mb-4">
+          <i class="fa-solid fa-bolt text-cyan-400"></i> Entrega Automática por Trade / Regalo
+        </div>
+        <h1 class="font-heading text-4xl sm:text-6xl font-black text-white leading-tight uppercase tracking-tight">
+          Domina los Mares de <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-500 to-cyan-400 neon-text-purple">Blox Fruits</span>
+        </h1>
+        <p class="text-slate-300 mt-4 mb-6 text-base sm:text-lg max-w-xl">
+          Consigue tus <strong class="text-cyan-400">Frutas Permanentes</strong> y <strong class="text-purple-400">Gamepasses</strong> al mejor precio del mercado. 100% Seguro, rápido y sin riesgos de ban.
+        </p>
+        <div class="flex flex-wrap gap-4 justify-center md:justify-start">
+          <a href="#catalog" class="bg-gradient-to-r from-purple-600 to-cyan-500 hover:from-purple-500 hover:to-cyan-400 text-white font-extrabold px-8 py-3.5 rounded-xl transition shadow-lg shadow-purple-900/50 uppercase tracking-wider text-sm flex items-center gap-2">
+            <i class="fa-solid fa-fire"></i> Ver Frutas Disponibles
+          </a>
+          <a href="#gamepasses" class="bg-blox-card hover:bg-slate-800 text-slate-200 border border-blox-border font-bold px-6 py-3.5 rounded-xl transition text-sm flex items-center gap-2">
+            <i class="fa-solid fa-gamepad text-purple-400"></i> Gamepasses
+          </a>
+        </div>
+      </div>
+
+      <!-- Imagen Destacada de las Frutas -->
+      <div class="md:w-1/2 flex justify-center relative">
+        <div class="relative w-full max-w-md aspect-square bg-blox-card/60 border border-purple-500/30 rounded-2xl p-4 flex items-center justify-center backdrop-blur-sm neon-border">
+          <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80" alt="Frutas de Blox Fruits" class="w-full h-full object-cover rounded-xl opacity-90 hover:scale-105 transition duration-500">
+          <div class="absolute bottom-4 left-4 right-4 bg-blox-dark/90 backdrop-blur-md p-3 rounded-xl border border-cyan-500/40 text-center">
+            <p class="text-xs font-bold text-cyan-300 uppercase tracking-wider">🔥 Oferta Flash 🔥</p>
+            <p class="text-sm font-black text-white">Combo Kitsune Perm + Dark Blade</p>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- Catálogo -->
-  <main id="catalogo" class="max-w-6xl mx-auto px-4 py-12 flex-grow w-full">
-    <div class="flex items-center justify-between mb-8">
-      <h2 class="text-2xl font-bold tracking-tight text-stone-900">Productos destacados</h2>
-      <span class="text-xs text-stone-500 uppercase tracking-widest font-mono">6 Artículos</span>
+  <!-- FILTROS Y CATÁLOGO -->
+  <main id="catalog" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 flex-grow w-full">
+    
+    <!-- Filtros por Categoría -->
+    <div class="flex flex-col md:flex-row items-center justify-between mb-8 gap-4 border-b border-blox-border pb-6">
+      <div class="flex flex-wrap gap-2">
+        <button class="bg-purple-600 text-white font-bold px-4 py-2 rounded-xl text-sm transition">Todas</button>
+        <button class="bg-blox-card hover:bg-slate-800 text-slate-300 border border-blox-border font-bold px-4 py-2 rounded-xl text-sm transition">Míticas</button>
+        <button class="bg-blox-card hover:bg-slate-800 text-slate-300 border border-blox-border font-bold px-4 py-2 rounded-xl text-sm transition">Legendarias</button>
+        <button class="bg-blox-card hover:bg-slate-800 text-slate-300 border border-blox-border font-bold px-4 py-2 rounded-xl text-sm transition" id="gamepasses">Gamepasses</button>
+      </div>
+
+      <div class="flex items-center gap-3 w-full md:w-auto justify-end">
+        <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Ordenar por:</span>
+        <select class="bg-blox-card border border-blox-border text-slate-200 text-sm rounded-xl p-2.5 focus:outline-none focus:border-cyan-400">
+          <option>Más Populares</option>
+          <option>Precio: Menor a Mayor</option>
+          <option>Precio: Mayor a Menor</option>
+        </select>
+      </div>
     </div>
 
     <!-- Grid de Productos -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-      
-      <!-- Producto 1 -->
-      <article class="bg-white rounded-xl border border-stone-200 overflow-hidden flex flex-col group hover:shadow-md transition-shadow">
-        <div class="relative aspect-square bg-stone-100 flex items-center justify-center p-6">
-          <img src="https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=600&q=80" alt="Libreta Dot-Grid" class="object-cover w-full h-full rounded group-hover:scale-105 transition-transform duration-300">
-          <span class="absolute top-3 left-3 bg-white/90 text-stone-900 text-[11px] font-semibold px-2 py-1 rounded backdrop-blur">Popular</span>
-        </div>
-        <div class="p-5 flex flex-col flex-grow justify-between gap-4">
-          <div>
-            <span class="text-xs text-stone-500 uppercase font-medium">Papelería</span>
-            <h3 class="font-semibold text-stone-900 text-base mt-1">Cuaderno Dot-Grid A6</h3>
-            <p class="text-stone-600 text-sm mt-1">Papel de 90g con costura expuesta y tapa dura.</p>
-          </div>
-          <div class="flex items-center justify-between pt-2 border-t border-stone-100">
-            <span class="font-bold text-stone-900 font-mono text-lg">$14.50</span>
-            <button onclick="addToCart('Cuaderno Dot-Grid A6', 14.50)" class="px-3.5 py-2 bg-stone-900 hover:bg-emerald-800 text-white text-xs font-medium rounded-md transition-colors flex items-center gap-1.5">
-              <i data-lucide="plus" class="w-3.5 h-3.5"></i> Añadir
-            </button>
-          </div>
-        </div>
-      </article>
-
-      <!-- Producto 2 -->
-      <article class="bg-white rounded-xl border border-stone-200 overflow-hidden flex flex-col group hover:shadow-md transition-shadow">
-        <div class="relative aspect-square bg-stone-100 flex items-center justify-center p-6">
-          <img src="https://images.unsplash.com/photo-1583485088034-697b5bc54ccd?auto=format&fit=crop&w=600&q=80" alt="Bolígrafo Latón" class="object-cover w-full h-full rounded group-hover:scale-105 transition-transform duration-300">
-        </div>
-        <div class="p-5 flex flex-col flex-grow justify-between gap-4">
-          <div>
-            <span class="text-xs text-stone-500 uppercase font-medium">Escritura</span>
-            <h3 class="font-semibold text-stone-900 text-base mt-1">Bolígrafo de Latón Macizo</h3>
-            <p class="text-stone-600 text-sm mt-1">Mecanismo retráctil con recambio estándar universal.</p>
-          </div>
-          <div class="flex items-center justify-between pt-2 border-t border-stone-100">
-            <span class="font-bold text-stone-900 font-mono text-lg">$28.00</span>
-            <button onclick="addToCart('Bolígrafo de Latón', 28.00)" class="px-3.5 py-2 bg-stone-900 hover:bg-emerald-800 text-white text-xs font-medium rounded-md transition-colors flex items-center gap-1.5">
-              <i data-lucide="plus" class="w-3.5 h-3.5"></i> Añadir
-            </button>
-          </div>
-        </div>
-      </article>
-
-      <!-- Producto 3 -->
-      <article class="bg-white rounded-xl border border-stone-200 overflow-hidden flex flex-col group hover:shadow-md transition-shadow">
-        <div class="relative aspect-square bg-stone-100 flex items-center justify-center p-6">
-          <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=600&q=80" alt="Auriculares de Estudio" class="object-cover w-full h-full rounded group-hover:scale-105 transition-transform duration-300">
-        </div>
-        <div class="p-5 flex flex-col flex-grow justify-between gap-4">
-          <div>
-            <span class="text-xs text-stone-500 uppercase font-medium">Audio</span>
-            <h3 class="font-semibold text-stone-900 text-base mt-1">Auriculares Monitor Cableados</h3>
-            <p class="text-stone-600 text-sm mt-1">Drivers de 40mm con respuesta plana y latencia cero.</p>
-          </div>
-          <div class="flex items-center justify-between pt-2 border-t border-stone-100">
-            <span class="font-bold text-stone-900 font-mono text-lg">$65.00</span>
-            <button onclick="addToCart('Auriculares Monitor', 65.00)" class="px-3.5 py-2 bg-stone-900 hover:bg-emerald-800 text-white text-xs font-medium rounded-md transition-colors flex items-center gap-1.5">
-              <i data-lucide="plus" class="w-3.5 h-3.5"></i> Añadir
-            </button>
-          </div>
-        </div>
-      </article>
-
+    <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <!-- Inyectado vía JS -->
     </div>
+
   </main>
 
-  <!-- Carrito Lateral (Drawer) -->
-  <aside id="cart-drawer" class="fixed inset-y-0 right-0 w-full sm:w-96 bg-white shadow-2xl transform translate-x-full transition-transform duration-300 ease-in-out z-50 flex flex-col">
-    <div class="p-4 border-b border-stone-200 flex items-center justify-between">
-      <h3 class="font-bold text-stone-900 text-lg">Bolsa de Compras</h3>
-      <button id="close-cart-btn" class="p-2 text-stone-500 hover:text-stone-800">
-        <i data-lucide="x" class="w-5 h-5"></i>
-      </button>
-    </div>
-
-    <div id="cart-items" class="flex-grow overflow-y-auto p-4 space-y-3">
-      <p id="empty-cart-msg" class="text-stone-500 text-sm text-center py-8">Tu bolsa está vacía.</p>
-    </div>
-
-    <div class="p-4 border-t border-stone-200 bg-stone-50 space-y-3">
-      <div class="flex justify-between text-sm font-semibold text-stone-900">
-        <span>Subtotal</span>
-        <span id="cart-total">$0.00</span>
+  <!-- SECCIÓN DE CONFIANZA / BENEFICIOS GAMER -->
+  <section class="bg-blox-card border-y border-blox-border py-10 relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div class="flex items-center gap-4 p-4 rounded-xl bg-blox-dark/50 border border-blox-border">
+        <div class="p-3 bg-purple-600/20 text-purple-400 rounded-xl text-2xl">
+          <i class="fa-solid fa-bolt-lightning"></i>
+        </div>
+        <div>
+          <h3 class="font-bold text-white text-base">Entrega Inmediata</h3>
+          <p class="text-xs text-slate-400 mt-0.5">Recibe tu item mediante servidor privado o regalo en minutos.</p>
+        </div>
       </div>
-      <button class="w-full py-3 bg-emerald-800 hover:bg-emerald-900 text-white rounded-lg font-medium text-sm transition-colors flex items-center justify-center gap-2">
-        Proceder al pago
-        <i data-lucide="check" class="w-4 h-4"></i>
-      </button>
-    </div>
-  </aside>
 
-  <!-- Overlay para cerrar el drawer -->
-  <div id="backdrop" class="fixed inset-0 bg-stone-900/40 opacity-0 pointer-events-none transition-opacity duration-300 z-40"></div>
-
-  <!-- Footer -->
-  <footer class="bg-stone-900 text-stone-400 py-8 border-t border-stone-800 text-xs">
-    <div class="max-w-6xl mx-auto px-4 flex flex-col sm:flex-row justify-between items-center gap-4">
-      <p>© 2026 Tienda Online. Todos los derechos reservados.</p>
-      <div class="flex gap-4">
-        <a href="#" class="hover:text-white">Privacidad</a>
-        <a href="#" class="hover:text-white">Términos de servicio</a>
-        <a href="#" class="hover:text-white">Contacto</a>
+      <div class="flex items-center gap-4 p-4 rounded-xl bg-blox-dark/50 border border-blox-border">
+        <div class="p-3 bg-cyan-600/20 text-cyan-400 rounded-xl text-2xl">
+          <i class="fa-solid fa-shield-halved"></i>
+        </div>
+        <div>
+          <h3 class="font-bold text-white text-base">100% Anti-Ban</h3>
+          <p class="text-xs text-slate-400 mt-0.5">Métodos legítimos adquiridos directamente en la tienda oficial.</p>
+        </div>
       </div>
+
+      <div class="flex items-center gap-4 p-4 rounded-xl bg-blox-dark/50 border border-blox-border">
+        <div class="p-3 bg-pink-600/20 text-pink-400 rounded-xl text-2xl">
+          <i class="fa-solid fa-headset"></i>
+        </div>
+        <div>
+          <h3 class="font-bold text-white text-base">Soporte 24/7 en Discord</h3>
+          <p class="text-xs text-slate-400 mt-0.5">Atención personalizada para coordinar la entrega de tus productos.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PIE DE PÁGINA -->
+  <footer class="bg-blox-dark border-t border-blox-border text-slate-400 text-sm py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+      <div>
+        <a href="#" class="font-heading text-xl font-black text-white uppercase flex items-center gap-2 mb-3">
+          <i class="fa-solid fa-cubes text-cyan-400"></i> BloxRecargas
+        </a>
+        <p class="text-xs text-slate-400 leading-relaxed">
+          Tu tienda de confianza para potenciar tu aventura en Blox Fruits. Las mejores frutas permanentes y gamepasses al alcance de un clic.
+        </p>
+      </div>
+
+      <div>
+        <h4 class="text-white text-xs font-bold uppercase tracking-wider mb-4 border-l-2 border-purple-500 pl-2">Productos</h4>
+        <ul class="space-y-2 text-xs">
+          <li><a href="#" class="hover:text-cyan-400 transition">Frutas Permanentes</a></li>
+          <li><a href="#" class="hover:text-cyan-400 transition">Gamepasses</a></li>
+          <li><a href="#" class="hover:text-cyan-400 transition">Cuentas Subidas</a></li>
+          <li><a href="#" class="hover:text-cyan-400 transition">Scrolls Míticos</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="text-white text-xs font-bold uppercase tracking-wider mb-4 border-l-2 border-cyan-500 pl-2">Soporte</h4>
+        <ul class="space-y-2 text-xs">
+          <li><a href="#" class="hover:text-cyan-400 transition">¿Cómo recibir mi compra?</a></li>
+          <li><a href="#" class="hover:text-cyan-400 transition">Preguntas Frecuentes</a></li>
+          <li><a href="#" class="hover:text-cyan-400 transition">Términos del Servicio</a></li>
+          <li><a href="#" class="hover:text-cyan-400 transition">Estado de Servidores</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="text-white text-xs font-bold uppercase tracking-wider mb-4 border-l-2 border-pink-500 pl-2">Comunidad Gamer</h4>
+        <p class="text-xs text-slate-400 mb-3">Únete a nuestro servidor de Discord para sorteos diarios:</p>
+        <div class="flex space-x-3">
+          <a href="#" class="bg-blox-card hover:bg-purple-600 hover:text-white border border-blox-border p-2.5 rounded-xl transition text-slate-300">
+            <i class="fa-brands fa-discord text-lg"></i>
+          </a>
+          <a href="#" class="bg-blox-card hover:bg-cyan-600 hover:text-white border border-blox-border p-2.5 rounded-xl transition text-slate-300">
+            <i class="fa-brands fa-tiktok text-lg"></i>
+          </a>
+          <a href="#" class="bg-blox-card hover:bg-pink-600 hover:text-white border border-blox-border p-2.5 rounded-xl transition text-slate-300">
+            <i class="fa-brands fa-youtube text-lg"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-t border-blox-border pt-6 text-xs text-center text-slate-500">
+      &copy; 2026 BloxRecargas. No afiliado directamente con Roblox Corporation ni Gamer Robot Inc.
     </div>
   </footer>
 
-  <!-- Script interactivo -->
+  <!-- LÓGICA JAVASCRIPT -->
   <script>
-    lucide.createIcons();
-
-    let cart = [];
-    const cartDrawer = document.getElementById('cart-drawer');
-    const backdrop = document.getElementById('backdrop');
-    const cartBtn = document.getElementById('cart-btn');
-    const closeCartBtn = document.getElementById('close-cart-btn');
-    const cartItemsContainer = document.getElementById('cart-items');
-    const cartCount = document.getElementById('cart-count');
-    const cartTotal = document.getElementById('cart-total');
-    const emptyMsg = document.getElementById('empty-cart-msg');
-
-    function toggleCart(open) {
-      if (open) {
-        cartDrawer.classList.remove('translate-x-full');
-        backdrop.classList.remove('opacity-0', 'pointer-events-none');
-      } else {
-        cartDrawer.classList.add('translate-x-full');
-        backdrop.classList.add('opacity-0', 'pointer-events-none');
+    const products = [
+      { 
+        id: 1, 
+        name: 'Kitsune (Permanente)', 
+        category: 'Mítica', 
+        price: 34.99, 
+        tag: 'Más Vendida',
+        image: 'https://images.unsplash.com/photo-1579783902614-a3fb3927b675?auto=format&fit=crop&w=500&q=80',
+        rarityColor: 'text-pink-400'
+      },
+      { 
+        id: 2, 
+        name: 'Dragon (Permanente)', 
+        category: 'Mítica', 
+        price: 38.50, 
+        tag: 'Rework',
+        image: 'https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=500&q=80',
+        rarityColor: 'text-pink-400'
+      },
+      { 
+        id: 3, 
+        name: 'Dough / Masa (Permanente)', 
+        category: 'Mítica', 
+        price: 24.99, 
+        tag: 'Meta PvP',
+        image: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=500&q=80',
+        rarityColor: 'text-pink-400'
+      },
+      { 
+        id: 4, 
+        name: 'Dark Blade (Espada)', 
+        category: 'Gamepass', 
+        price: 14.99, 
+        tag: 'Popular',
+        image: 'https://images.unsplash.com/photo-1595590424283-b8f17842773f?auto=format&fit=crop&w=500&q=80',
+        rarityColor: 'text-cyan-400'
+      },
+      { 
+        id: 5, 
+        name: 'Buddha (Permanente)', 
+        category: 'Legendaria', 
+        price: 18.00, 
+        tag: 'Mejor para Farm',
+        image: 'https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?auto=format&fit=crop&w=500&q=80',
+        rarityColor: 'text-purple-400'
+      },
+      { 
+        id: 6, 
+        name: 'x2 Dinero (Beli)', 
+        category: 'Gamepass', 
+        price: 8.50, 
+        tag: '',
+        image: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=500&q=80',
+        rarityColor: 'text-cyan-400'
+      },
+      { 
+        id: 7, 
+        name: 'Portal (Permanente)', 
+        category: 'Legendaria', 
+        price: 21.00, 
+        tag: 'Útil',
+        image: 'https://images.unsplash.com/photo-1509198397868-475647b2a1e5?auto=format&fit=crop&w=500&q=80',
+        rarityColor: 'text-purple-400'
+      },
+      { 
+        id: 8, 
+        name: 'Notificador de Frutas', 
+        category: 'Gamepass', 
+        price: 29.99, 
+        tag: 'VIP',
+        image: 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=500&q=80',
+        rarityColor: 'text-cyan-400'
       }
-    }
+    ];
 
-    cartBtn.addEventListener('click', () => toggleCart(true));
-    closeCartBtn.addEventListener('click', () => toggleCart(false));
-    backdrop.addEventListener('click', () => toggleCart(false));
+    let cartCount = 0;
 
-    function addToCart(title, price) {
-      cart.push({ title, price });
-      renderCart();
-      toggleCart(true);
-    }
-
-    function renderCart() {
-      cartCount.textContent = cart.length;
-      if (cart.length === 0) {
-        emptyMsg.style.display = 'block';
-        cartItemsContainer.innerHTML = '';
-        cartItemsContainer.appendChild(emptyMsg);
-        cartTotal.textContent = '$0.00';
-        return;
-      }
-
-      emptyMsg.style.display = 'none';
-      cartItemsContainer.innerHTML = '';
-
-      let total = 0;
-      cart.forEach((item, index) => {
-        total += item.price;
-        const row = document.createElement('div');
-        row.className = 'flex items-center justify-between p-2.5 bg-stone-100 rounded border border-stone-200 text-sm';
-        row.innerHTML = `
+    const grid = document.getElementById('product-grid');
+    grid.innerHTML = products.map(prod => `
+      <div class="bg-blox-card rounded-2xl border border-blox-border overflow-hidden shadow-lg hover:border-purple-500/50 transition duration-300 flex flex-col justify-between group neon-border">
+        <div class="relative overflow-hidden h-48 bg-slate-900">
+          <img src="${prod.image}" alt="${prod.name}" class="w-full h-full object-cover group-hover:scale-110 transition duration-500 opacity-80 group-hover:opacity-100">
+          <div class="absolute inset-0 bg-gradient-to-t from-blox-card via-transparent to-transparent"></div>
+          ${prod.tag ? `<span class="absolute top-3 left-3 bg-purple-600 text-white text-[10px] font-black uppercase px-2.5 py-1 rounded-lg tracking-wider shadow-md">${prod.tag}</span>` : ''}
+        </div>
+        
+        <div class="p-5 flex-grow flex flex-col justify-between">
           <div>
-            <div class="font-medium text-stone-900">${item.title}</div>
-            <div class="text-xs text-stone-500">$${item.price.toFixed(2)}</div>
+            <span class="text-xs font-bold uppercase tracking-wider ${prod.rarityColor}">${prod.category}</span>
+            <h3 class="font-heading font-bold text-white mt-1 text-lg group-hover:text-cyan-400 transition">${prod.name}</h3>
           </div>
-          <button onclick="removeFromCart(${index})" class="text-stone-400 hover:text-red-600 p-1">
-            <i data-lucide="trash-2" class="w-4 h-4"></i>
-          </button>
-        `;
-        cartItemsContainer.appendChild(row);
-      });
+          
+          <div class="flex items-center justify-between mt-5 pt-3 border-t border-blox-border">
+            <div>
+              <span class="text-xs text-slate-400 block">Precio final</span>
+              <span class="text-xl font-black text-white">$${prod.price.toFixed(2)}</span>
+            </div>
+            <button onclick="addToCart()" class="bg-gradient-to-r from-purple-600 to-cyan-600 hover:from-purple-500 hover:to-cyan-500 text-white p-2.5 rounded-xl transition text-sm font-bold flex items-center gap-2 shadow-md">
+              <i class="fa-solid fa-cart-plus"></i> Comprar
+            </button>
+          </div>
+        </div>
+      </div>
+    `).join('');
 
-      cartTotal.textContent = `$${total.toFixed(2)}`;
-      lucide.createIcons();
-    }
-
-    function removeFromCart(index) {
-      cart.splice(index, 1);
-      renderCart();
+    function addToCart() {
+      cartCount++;
+      document.getElementById('cart-count').innerText = cartCount;
     }
   </script>
 </body>
