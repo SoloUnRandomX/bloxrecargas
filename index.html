@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tienda Online Minimal</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="bg-stone-50 text-stone-900 flex flex-col min-h-screen antialiased">
+
+  <!-- Navbar -->
+  <header class="sticky top-0 z-40 bg-white/90 backdrop-blur border-b border-stone-200">
+    <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
+      <a href="#" class="text-xl font-bold tracking-tight text-stone-900">TIENDA<span class="text-emerald-700">.</span></a>
+
+      <nav class="hidden md:flex gap-6 text-sm font-medium text-stone-600">
+        <a href="#destacados" class="hover:text-stone-900 transition-colors">Destacados</a>
+        <a href="#catalogo" class="hover:text-stone-900 transition-colors">Catálogo</a>
+        <a href="#sobre-nosotros" class="hover:text-stone-900 transition-colors">Sobre nosotros</a>
+      </nav>
+
+      <div class="flex items-center gap-4">
+        <button id="cart-btn" class="relative p-2 text-stone-700 hover:text-stone-900">
+          <i data-lucide="shopping-bag" class="w-5 h-5"></i>
+          <span id="cart-count" class="absolute top-0 right-0 w-4 h-4 text-[10px] font-bold bg-emerald-700 text-white rounded-full flex items-center justify-center">0</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="bg-stone-100 border-b border-stone-200 py-16 px-4">
+    <div class="max-w-4xl mx-auto text-center space-y-4">
+      <span class="inline-block px-3 py-1 bg-stone-200 text-stone-700 rounded-full text-xs font-semibold uppercase tracking-wider">Nueva Colección 2026</span>
+      <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-stone-900">Diseño funcional para el día a día.</h1>
+      <p class="text-stone-600 max-w-xl mx-auto text-base">Productos seleccionados con materiales duraderos y estética minimalista.</p>
+      <div class="pt-2">
+        <a href="#catalogo" class="inline-flex items-center gap-2 px-6 py-3 bg-stone-900 text-white text-sm font-medium rounded-lg hover:bg-stone-800 transition-colors">
+          Explorar catálogo
+          <i data-lucide="arrow-right" class="w-4 h-4"></i>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Catálogo -->
+  <main id="catalogo" class="max-w-6xl mx-auto px-4 py-12 flex-grow w-full">
+    <div class="flex items-center justify-between mb-8">
+      <h2 class="text-2xl font-bold tracking-tight text-stone-900">Productos destacados</h2>
+      <span class="text-xs text-stone-500 uppercase tracking-widest font-mono">6 Artículos</span>
+    </div>
+
+    <!-- Grid de Productos -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      
+      <!-- Producto 1 -->
+      <article class="bg-white rounded-xl border border-stone-200 overflow-hidden flex flex-col group hover:shadow-md transition-shadow">
+        <div class="relative aspect-square bg-stone-100 flex items-center justify-center p-6">
+          <img src="https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=600&q=80" alt="Libreta Dot-Grid" class="object-cover w-full h-full rounded group-hover:scale-105 transition-transform duration-300">
+          <span class="absolute top-3 left-3 bg-white/90 text-stone-900 text-[11px] font-semibold px-2 py-1 rounded backdrop-blur">Popular</span>
+        </div>
+        <div class="p-5 flex flex-col flex-grow justify-between gap-4">
+          <div>
+            <span class="text-xs text-stone-500 uppercase font-medium">Papelería</span>
+            <h3 class="font-semibold text-stone-900 text-base mt-1">Cuaderno Dot-Grid A6</h3>
+            <p class="text-stone-600 text-sm mt-1">Papel de 90g con costura expuesta y tapa dura.</p>
+          </div>
+          <div class="flex items-center justify-between pt-2 border-t border-stone-100">
+            <span class="font-bold text-stone-900 font-mono text-lg">$14.50</span>
+            <button onclick="addToCart('Cuaderno Dot-Grid A6', 14.50)" class="px-3.5 py-2 bg-stone-900 hover:bg-emerald-800 text-white text-xs font-medium rounded-md transition-colors flex items-center gap-1.5">
+              <i data-lucide="plus" class="w-3.5 h-3.5"></i> Añadir
+            </button>
+          </div>
+        </div>
+      </article>
+
+      <!-- Producto 2 -->
+      <article class="bg-white rounded-xl border border-stone-200 overflow-hidden flex flex-col group hover:shadow-md transition-shadow">
+        <div class="relative aspect-square bg-stone-100 flex items-center justify-center p-6">
+          <img src="https://images.unsplash.com/photo-1583485088034-697b5bc54ccd?auto=format&fit=crop&w=600&q=80" alt="Bolígrafo Latón" class="object-cover w-full h-full rounded group-hover:scale-105 transition-transform duration-300">
+        </div>
+        <div class="p-5 flex flex-col flex-grow justify-between gap-4">
+          <div>
+            <span class="text-xs text-stone-500 uppercase font-medium">Escritura</span>
+            <h3 class="font-semibold text-stone-900 text-base mt-1">Bolígrafo de Latón Macizo</h3>
+            <p class="text-stone-600 text-sm mt-1">Mecanismo retráctil con recambio estándar universal.</p>
+          </div>
+          <div class="flex items-center justify-between pt-2 border-t border-stone-100">
+            <span class="font-bold text-stone-900 font-mono text-lg">$28.00</span>
+            <button onclick="addToCart('Bolígrafo de Latón', 28.00)" class="px-3.5 py-2 bg-stone-900 hover:bg-emerald-800 text-white text-xs font-medium rounded-md transition-colors flex items-center gap-1.5">
+              <i data-lucide="plus" class="w-3.5 h-3.5"></i> Añadir
+            </button>
+          </div>
+        </div>
+      </article>
+
+      <!-- Producto 3 -->
+      <article class="bg-white rounded-xl border border-stone-200 overflow-hidden flex flex-col group hover:shadow-md transition-shadow">
+        <div class="relative aspect-square bg-stone-100 flex items-center justify-center p-6">
+          <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=600&q=80" alt="Auriculares de Estudio" class="object-cover w-full h-full rounded group-hover:scale-105 transition-transform duration-300">
+        </div>
+        <div class="p-5 flex flex-col flex-grow justify-between gap-4">
+          <div>
+            <span class="text-xs text-stone-500 uppercase font-medium">Audio</span>
+            <h3 class="font-semibold text-stone-900 text-base mt-1">Auriculares Monitor Cableados</h3>
+            <p class="text-stone-600 text-sm mt-1">Drivers de 40mm con respuesta plana y latencia cero.</p>
+          </div>
+          <div class="flex items-center justify-between pt-2 border-t border-stone-100">
+            <span class="font-bold text-stone-900 font-mono text-lg">$65.00</span>
+            <button onclick="addToCart('Auriculares Monitor', 65.00)" class="px-3.5 py-2 bg-stone-900 hover:bg-emerald-800 text-white text-xs font-medium rounded-md transition-colors flex items-center gap-1.5">
+              <i data-lucide="plus" class="w-3.5 h-3.5"></i> Añadir
+            </button>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </main>
+
+  <!-- Carrito Lateral (Drawer) -->
+  <aside id="cart-drawer" class="fixed inset-y-0 right-0 w-full sm:w-96 bg-white shadow-2xl transform translate-x-full transition-transform duration-300 ease-in-out z-50 flex flex-col">
+    <div class="p-4 border-b border-stone-200 flex items-center justify-between">
+      <h3 class="font-bold text-stone-900 text-lg">Bolsa de Compras</h3>
+      <button id="close-cart-btn" class="p-2 text-stone-500 hover:text-stone-800">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+    </div>
+
+    <div id="cart-items" class="flex-grow overflow-y-auto p-4 space-y-3">
+      <p id="empty-cart-msg" class="text-stone-500 text-sm text-center py-8">Tu bolsa está vacía.</p>
+    </div>
+
+    <div class="p-4 border-t border-stone-200 bg-stone-50 space-y-3">
+      <div class="flex justify-between text-sm font-semibold text-stone-900">
+        <span>Subtotal</span>
+        <span id="cart-total">$0.00</span>
+      </div>
+      <button class="w-full py-3 bg-emerald-800 hover:bg-emerald-900 text-white rounded-lg font-medium text-sm transition-colors flex items-center justify-center gap-2">
+        Proceder al pago
+        <i data-lucide="check" class="w-4 h-4"></i>
+      </button>
+    </div>
+  </aside>
+
+  <!-- Overlay para cerrar el drawer -->
+  <div id="backdrop" class="fixed inset-0 bg-stone-900/40 opacity-0 pointer-events-none transition-opacity duration-300 z-40"></div>
+
+  <!-- Footer -->
+  <footer class="bg-stone-900 text-stone-400 py-8 border-t border-stone-800 text-xs">
+    <div class="max-w-6xl mx-auto px-4 flex flex-col sm:flex-row justify-between items-center gap-4">
+      <p>© 2026 Tienda Online. Todos los derechos reservados.</p>
+      <div class="flex gap-4">
+        <a href="#" class="hover:text-white">Privacidad</a>
+        <a href="#" class="hover:text-white">Términos de servicio</a>
+        <a href="#" class="hover:text-white">Contacto</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Script interactivo -->
+  <script>
+    lucide.createIcons();
+
+    let cart = [];
+    const cartDrawer = document.getElementById('cart-drawer');
+    const backdrop = document.getElementById('backdrop');
+    const cartBtn = document.getElementById('cart-btn');
+    const closeCartBtn = document.getElementById('close-cart-btn');
+    const cartItemsContainer = document.getElementById('cart-items');
+    const cartCount = document.getElementById('cart-count');
+    const cartTotal = document.getElementById('cart-total');
+    const emptyMsg = document.getElementById('empty-cart-msg');
+
+    function toggleCart(open) {
+      if (open) {
+        cartDrawer.classList.remove('translate-x-full');
+        backdrop.classList.remove('opacity-0', 'pointer-events-none');
+      } else {
+        cartDrawer.classList.add('translate-x-full');
+        backdrop.classList.add('opacity-0', 'pointer-events-none');
+      }
+    }
+
+    cartBtn.addEventListener('click', () => toggleCart(true));
+    closeCartBtn.addEventListener('click', () => toggleCart(false));
+    backdrop.addEventListener('click', () => toggleCart(false));
+
+    function addToCart(title, price) {
+      cart.push({ title, price });
+      renderCart();
+      toggleCart(true);
+    }
+
+    function renderCart() {
+      cartCount.textContent = cart.length;
+      if (cart.length === 0) {
+        emptyMsg.style.display = 'block';
+        cartItemsContainer.innerHTML = '';
+        cartItemsContainer.appendChild(emptyMsg);
+        cartTotal.textContent = '$0.00';
+        return;
+      }
+
+      emptyMsg.style.display = 'none';
+      cartItemsContainer.innerHTML = '';
+
+      let total = 0;
+      cart.forEach((item, index) => {
+        total += item.price;
+        const row = document.createElement('div');
+        row.className = 'flex items-center justify-between p-2.5 bg-stone-100 rounded border border-stone-200 text-sm';
+        row.innerHTML = `
+          <div>
+            <div class="font-medium text-stone-900">${item.title}</div>
+            <div class="text-xs text-stone-500">$${item.price.toFixed(2)}</div>
+          </div>
+          <button onclick="removeFromCart(${index})" class="text-stone-400 hover:text-red-600 p-1">
+            <i data-lucide="trash-2" class="w-4 h-4"></i>
+          </button>
+        `;
+        cartItemsContainer.appendChild(row);
+      });
+
+      cartTotal.textContent = `$${total.toFixed(2)}`;
+      lucide.createIcons();
+    }
+
+    function removeFromCart(index) {
+      cart.splice(index, 1);
+      renderCart();
+    }
+  </script>
+</body>
+</html>
